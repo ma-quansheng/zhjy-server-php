@@ -1,0 +1,63 @@
+{include file='public/_meta'}
+<title>业主管理</title>
+</head>
+
+<body>
+    <nav class="breadcrumb">
+        缴费记录
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <form action="{:url('admin/feereport/index')}" method="post">
+            <div class="text-c">
+                物业：
+                <input type="text" name="addr" id="" value="{$addr}" style="width:250px" class="input-text">
+                所有人：
+                <input type="text" name="username" id="" value="{$username}" style="width:250px" class="input-text">
+                <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i>
+                    搜索</button>
+            </div>
+        </form>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                <a class="btn btn-primary radius" href="{:url('admin/feereport/add')}"><i class="Hui-iconfont">&#xe600;</i>
+                    费用缴纳</a>
+            </span>
+            <span class="r">共有数据：<strong>{:count($list)}</strong> 条</span>
+        </div>
+        <div class="mt-20">
+            <table class="table table-border table-hover table-bg table-sort">
+                <thead>
+                    <tr class="text-c">
+                        <th width="100">物业名称</th>
+                        <th width="100">费用生效日期</th>
+                        <th width="100">费用失效日期</th>
+                        <th width="100">金额</th>
+                        <th width="100">费用类型</th>
+                        <th width="80">所有人</th>
+                        <th width="80">缴费人</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {volist name="list" id='item'}
+                    <tr class="text-c">
+                        <td>{$item.addr}</td>
+                        <td>{$item.begin_date}</td>
+                        <td>{$item.end_date}</td>
+                        <td>{$item.amount}</td>
+                        <td>{$item.name}</td>
+                        <td>{$item.username}</td>
+                        <td>{$item.payer} </td>
+                    </tr>
+                    {/volist}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {include file='public/_footer'}
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript">
+    </script>
+</body>
+
+</html>

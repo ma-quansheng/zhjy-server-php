@@ -1,0 +1,80 @@
+{include file='public/_meta'}
+<title>物业管理</title>
+<style>
+    .display-none{
+    display: none;
+}
+</style>
+</head>
+
+<body>
+    <nav class="breadcrumb">
+        物业类型列表
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                <a class="btn btn-primary radius" href="{:url('admin/propertype/add')}"><i class="Hui-iconfont">&#xe600;</i>
+                    新增物业类型</a>
+            </span>
+            <span class="r">共有数据：<strong>{:count($list)}</strong> 条</span>
+        </div>
+        <div class="mt-20">
+            <table class="table table-border table-hover table-bg table-sort">
+                <thead>
+                    <tr class="text-c">
+                        <th width="50">名称</th>
+                        <th width="200">说明</th>
+                        <th width="50">当前状态</th>
+                        <th width="50">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {volist name="list" id='item'}
+                    <tr class="text-c">
+                        <td>{$item.name}</td>
+                        <td>{$item.summary}</td>
+                        <td>{$item.status|getStatus}</td>
+                        <td>
+                            <a href="{:url('admin/propertype/edit',['id'=>$item.id])}">编辑</a>
+                            <span class="pipe">|</span>
+                            <a href="{:url('admin/propertype/delete',['id'=>$item.id])}" class="color-red">删除</a>
+                        </td>
+                    </tr>
+                    {/volist}
+                </tbody>
+            </table>
+            <div id="laypage"></div>
+        </div>
+    </div>
+    {include file='public/_footer'}
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <script type="javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+    <script type="javascript" src="lib/laypage/1.2/laypage.js"></script>
+    <script>
+    function gradeChange() {
+        let ele = document.getElementById('user-selector');
+        let id = ele.options[ele.selectedIndex].value;
+        // console.log(id);
+        let tb = document.getElementById('tbody');
+        if (id == 0) {
+            for (let i = 0; i < tb.rows.length; i++) {
+                tb.rows[i].style.display = "table-row";
+            }
+        } else {
+            id = 'tr-' + id;
+            for (let i = 0; i < tb.rows.length; i++) {
+                if (tb.rows[i].id == id) {
+                    tb.rows[i].style.display = "table-row";
+                } else {
+                    tb.rows[i].style.display = "none";
+                }
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>

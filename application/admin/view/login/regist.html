@@ -1,0 +1,109 @@
+{include file='public/_meta'}
+<title>注册</title>
+<style>
+    .panel{
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 50px;
+    }
+</style>
+</head>
+
+<body>
+    <div class="loginWraper panel panel-primary">
+        <div class="panel-header">注册</div>
+        <div id="loginform" class="loginBox panel-body">
+            <form class="form form-horizontal" id="form-admin-add" method="post" action="{:url('admin/add')}">
+                <div class="row cl">
+                    <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>名称：</label>
+                    <div class="formControls col-xs-8 col-sm-8">
+                        <input type="text" class="input-text size-L" value="" placeholder="" id="username" name="username">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+                    <div class="formControls col-xs-8 col-sm-8">
+                        <input type="password" class="input-text size-L" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+                    <div class="formControls col-xs-8 col-sm-8">
+                        <input type="password" class="input-text size-L" autocomplete="off" placeholder="确认新密码" id="password2" name="password2">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-3 col-sm-3">角色：</label>
+                    <div class="formControls col-xs-8 col-sm-8"> <span class="select-box">
+                            <select class="select" name="role" size="1">
+                                <option value=0>请选择 ...</option>
+                                {volist name="rolelist" id='vo'}
+                                <option value={$vo.id}>{$vo.name}</option>
+                                {/volist}
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-3 col-sm-3">所属小区：</label>
+                    <div class="formControls col-xs-8 col-sm-8"> <span class="select-box">
+                            <select class="select" name="xiaoqu_id" size="1">
+                                <option value=0>请选择 ...</option>
+                                {volist name="xiaoqulist" id='vo'}
+                                <option value={$vo.id}>{$vo.name}</option>
+                                {/volist}
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-3">
+                        <input class="btn btn-primary radius size-L " type="submit" value="注册">
+                        <input class="btn btn-default radius size-L " type="reset" value="重置">
+                        <a href="{:url('admin/login/login')}" class="btn btn-primary radius size-L col-xs-offset-5">登录</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {include file='public/_footer'}
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="__STATIC__/hui.admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__STATIC__/hui.admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__STATIC__/hui.admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form-admin-add").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 4,
+                    maxlength: 16
+                },
+                password: {
+                    required: true,
+                },
+                password2: {
+                    required: true,
+                    equalTo: "#password"
+                },
+                role: {
+                    required: true,
+                },
+                xiaoqu_id: {
+                    required: true,
+                }
+            },
+        });
+    });
+    </script>
+    <!--/请在上方写此页面业务相关的脚本-->
+</body>
+
+</html>

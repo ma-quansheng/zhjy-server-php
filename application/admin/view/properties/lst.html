@@ -1,0 +1,73 @@
+{include file='public/_meta'}
+<title>物业管理</title>
+<style>
+</style>
+</head>
+
+<body>
+    <nav class="breadcrumb">
+        物业列表
+        <!-- <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a> -->
+    </nav>
+    <div class="page-container">
+        <form action="{:url('admin/properties/lstByUser')}" method="post">
+            <div class="text-l">
+                物业所有人：
+                <input type="text" name="username" id="" value="{$username}" style="width:250px" class="input-text">
+                <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i>
+                    搜索</button>
+            </div>
+        </form>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+            </span>
+            <span class="r">共有数据：<strong>{:count($list)}</strong> 条</span>
+        </div>
+        <div class="mt-20">
+            <table class="table table-border table-hover table-bg table-sort">
+                <thead>
+                    <tr class="text-c">
+                        <th width="100">所属人</th>
+                        <th width="100">物业类型</th>
+                        <th width="100">物业</th>
+                        <th width="100">物业状态</th>
+                        <th width="100">缴费情况</th>
+                        <th width="80">欠费金额</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {volist name="list" id="item"}
+                    <tr class="text-c">
+                        <td>{$item.username}</td>
+                        <td>{$item.name}</td>
+                        <td>{$item.addr}</td>
+                        <td>{$item.status|getStatus}</td>
+                        <td {if condition="$item.fee_status==2" }style="color:red;" {/if}>{$item.fee_status|getFeeStatus} </td> <td {if condition="$item.fee_status==2" }style="color:red;" {/if}>{$item.discount|default='0.00'} </td> </tr> {/volist} </tbody> </table> </div> </div> {include file='public/_footer' } <!--请在下方写此页面业务相关的脚本-->
+                            <script type="javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+                            <script type="javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+                            <script type="javascript" src="lib/laypage/1.2/laypage.js"></script>
+                            <script>
+                            function gradeChange() {
+                                let ele = document.getElementById('user-selector');
+                                let id = ele.options[ele.selectedIndex].value;
+                                // console.log(id);
+                                let tb = document.getElementById('tbody');
+                                if (id == 0) {
+                                    for (let i = 0; i < tb.rows.length; i++) {
+                                        tb.rows[i].style.display = "table-row";
+                                    }
+                                } else {
+                                    id = 'tr-' + id;
+                                    for (let i = 0; i < tb.rows.length; i++) {
+                                        if (tb.rows[i].id == id) {
+                                            tb.rows[i].style.display = "table-row";
+                                        } else {
+                                            tb.rows[i].style.display = "none";
+                                        }
+                                    }
+                                }
+                            }
+                            </script>
+</body>
+
+</html>

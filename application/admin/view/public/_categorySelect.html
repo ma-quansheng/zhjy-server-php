@@ -1,0 +1,20 @@
+<!-- 栏目选择列表组件 -->
+<div class="row cl">
+    <label class="form-label col-xs-4 col-sm-2">
+        <span class="c-red">*</span>
+        上级栏目：</label>
+    <div class="formControls col-xs-8 col-sm-9">
+        <span class="select-box">
+            <select class="select" id="sel_Sub" name="pid" onchange="SetSubID(this);">
+                <option value="0">请选择 ...</option>
+                {volist name="parentlist" id="item"}
+                <option value="{$item.id}">
+                    {$item.level}
+                </option>
+                {/volist}
+            </select>
+        </span>
+    </div>
+    <div class="col-3">
+    </div>
+</div>

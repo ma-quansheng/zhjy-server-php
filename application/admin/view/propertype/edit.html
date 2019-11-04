@@ -1,0 +1,58 @@
+{include file='public/_meta'}
+<title>栏目设置</title>
+</head>
+
+<body>
+    <nav class="breadcrumb">
+        编辑物业类型
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                编辑物业类型 - {$data.name}
+            </span>
+        </div>
+        <form class="form form-horizontal" id="form-category-add" method="post" action="{:url('admin/propertype/save')}">
+            <div id="tab-category" class="HuiTab">
+                <div class="tabCon">
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2">
+                            <span class="c-red">*</span>
+                            名称：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input type="hidden" name="id" value="{$data.id}">
+                            <input type="text" class="input-text" value="{$data.name}" placeholder="" id="" name="name">
+                        </div>
+                        <div class="col-3">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2">
+                            说明：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <textarea name="summary" id="" cols="" rows="10" style="width: 100%">{$data.summary}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-9 col-offset-2">
+                    <button type="submit" class="btn btn-primary radius">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {include file='public/_footer'}
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript">
+    $(function() {
+        $("#tab-category").Huitab({
+            index: 0
+        });
+    });
+    </script>
+    <!--/请在上方写此页面业务相关的脚本-->
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+{include file='public/_meta'}
+<title>物业设置</title>
+</head>
+
+<body>
+    <nav class="breadcrumb">
+        添加物业
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <form action="" method="post" class="form form-horizontal" id="form-category-add" method="post" action="{:url('admin/properties/add')}">
+			<!-- <input type="hidden" name="xiaoqu_id" value="{$xiaoqu_id}"> -->
+			<div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">
+                    <span class="c-red">*</span>
+                    上级物业：</label>
+                <div class="formControls col-xs-7 col-sm-9">
+                    <span class="select-box">
+                        <select class="select" id="sel_Sub" name="pid" onchange="SetSubID(this);">
+                            <option value="0">无</option>
+                            {volist name="categorylist" id="item"}
+                            <option value="{$item.id}">
+                                {$item.level}
+                            </option>
+                            {/volist}
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">
+                    <span class="c-red">*</span>
+                    物业名称：</label>
+                <div class="formControls col-xs-7 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="" name="name">
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-9 col-offset-2">
+                    <button type="submit" class="btn btn-primary radius">保存</button>
+                    <button type="reset" class="btn btn-default radius">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {include file='public/_footer'}
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript">
+    $(function() {});
+    </script>
+    <!--/请在上方写此页面业务相关的脚本-->
+</body>
+
+</html>
