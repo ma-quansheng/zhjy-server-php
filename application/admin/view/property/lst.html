@@ -7,10 +7,10 @@
 <body>
     <nav class="breadcrumb">
         物业列表
-        <!-- <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a> -->
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.reload();" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
     </nav>
     <div class="page-container">
-        <form action="{:url('admin/properties/lstByUser')}" method="post">
+        <form action="{:url('admin/property/lstByUser')}" method="post">
             <div class="text-l">
                 物业所有人：
                 <input type="text" name="username" id="" value="{$username}" style="width:250px" class="input-text">
@@ -42,7 +42,7 @@
                         <td>{$item.name}</td>
                         <td>{$item.addr}</td>
                         <td>{$item.status|getStatus}</td>
-                        <td {if condition="$item.fee_status==2" }style="color:red;" {/if}>{$item.fee_status|getFeeStatus} </td> <td {if condition="$item.fee_status==2" }style="color:red;" {/if}>{$item.discount|default='0.00'} </td> </tr> {/volist} </tbody> </table> </div> </div> {include file='public/_footer' } <!--请在下方写此页面业务相关的脚本-->
+                        <td {if condition="$item.fee_status==2" }style="color:red;" {/if}>{$item.fee_status|getFeeStatus} </td> <td {if condition="$item.fee_status==2" }style="color:red;" {/if}>{$item.amount|default='0.00'} </td> </tr> {/volist} </tbody> </table> </div> </div> {include file='public/_footer' } <!--请在下方写此页面业务相关的脚本-->
                             <script type="javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
                             <script type="javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
                             <script type="javascript" src="lib/laypage/1.2/laypage.js"></script>

@@ -5,9 +5,9 @@ namespace app\common\model;
 use app\common\model\Base;
 use think\Model;
 
-class Notifies extends Base
+class Notify extends Base
 {
-    protected $table = 'notifies';
+    protected $table = 'notify';
     protected $pk = 'id';
 
 	public function getHead($num=1){
@@ -21,7 +21,7 @@ class Notifies extends Base
 			'list_order'=>'asc'
 		];
 		
-		$fields=['id','title','description','author'];
+		$fields=['id','title','summary','author'];
 		
 		return $this->field($fields)
 			->where($where)
@@ -36,7 +36,7 @@ class Notifies extends Base
 			'is_hot'=>1
 		];
 		
-		$fields=['id','title','description','author','create_time'];
+		$fields=['id','title','summary','author','create_time'];
 		
 		$order=[
 			'create_time'=>'desc',
@@ -60,7 +60,7 @@ class Notifies extends Base
 			'status'=>1,
 		];
 		
-		$fields=['id','title','sub_title','category_id','description','is_position','is_hot','author','create_time'];
+		$fields=['id','title','sub_title','category_id','summary','is_position','is_hot','author','create_time'];
 		
 		return $this->where($where)
 			->field($fields)
@@ -77,7 +77,7 @@ class Notifies extends Base
 			'id'=>$id
 		];
 
-		$fields=['id','title','sub_title','category_id','description','content','is_position','is_hot','author','create_time'];
+		$fields=['id','title','sub_title','category_id','summary','content','is_position','is_hot','author','create_time'];
 		
 		return $this->where($where)
 			->field($fields)
@@ -96,7 +96,7 @@ class Notifies extends Base
 			'list_order'=>1
 		];
 
-		$fields=['id','title','sub_title','category_id','description','content','is_position','is_hot','author','create_time'];
+		$fields=['id','title','sub_title','category_id','summary','content','is_position','is_hot','author','create_time'];
 		
 		return $this->where($where)
 			->field($fields)
@@ -113,7 +113,7 @@ class Notifies extends Base
 			'author'=>$id
 		];
 
-		$fields=['id','title','sub_title','category_id','description','content','is_position','is_hot','author','create_time'];
+		$fields=['id','title','sub_title','category_id','summary','content','is_position','is_hot','author','create_time'];
 
 		$order=[
 			'create_time'=>1,
@@ -133,7 +133,7 @@ class Notifies extends Base
 		$where['status']=1;
 		$where['create_time']=['>=',$time];
 
-		$fields=['id','title','sub_title','category_id','description','content','is_position','is_hot','author','create_time'];
+		$fields=['id','title','sub_title','category_id','summary','content','is_position','is_hot','author','create_time'];
 
 		$order=[
 			'create_time'=>1,
@@ -151,7 +151,7 @@ class Notifies extends Base
 		$where['status']=1;
 		$where['title']=['like','%'.$str.'%'];
 	
-		$fields=['id','title','sub_title','category_id','description','content','is_position','is_hot','author','create_time'];
+		$fields=['id','title','sub_title','category_id','summary','content','is_position','is_hot','author','create_time'];
 	
 		$order=[
 			'create_time'=>1,

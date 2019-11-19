@@ -5,6 +5,7 @@ namespace app\admin\controller;
 use app\admin\controller\Base;
 use app\common\Auth;
 use think\Request;
+use think\Db;
 
 class Admin extends Base
 {
@@ -13,15 +14,10 @@ class Admin extends Base
  *
  * @return \think\Response
  */
+
     public function index()
     {
-        // $data = model('Admin')->get(rand(1, 5));
-        $data = model('Admin')->get(5);
-        // halt($data);
-        session('admin', $data);
-
-        $admin = session('admin');
-        $this->assign('admin', $admin);
+        $this->assign('admin', getCurrentUser());
 
         return $this->fetch();
     }
@@ -35,8 +31,8 @@ class Admin extends Base
     {
         if (request()->isPost()) {
             $data = input('post.');
-            $data['password'] = Auth::encodeByMd5($data['password']);
-            $id = model('Admin')->add($data);
+            // $data['password'] = Auth::encodeByMd5($data['password']);
+            $id = model('Admin')->allowField(true)->save($data);
             if ($id) {
                 $this->success('数据添加成功', 'admin/admin/lst', '', 1);
             } else {
@@ -57,13 +53,13 @@ class Admin extends Base
     public function lst()
     {
 // $admins = model('Admin')->select();
-        $where['xiaoqu_id'] = session('admin')['xiaoqu_id'];
+        $where['xiaoqu_id'] = \getCurrentUser()['xiaoqu_id'];
+				$where['role_id']=['<>',1];
         $admins = model('Admin')
-            ->field(['id', 'username', 'realname', 'role', 'xiaoqu_id', 'status', 'create_time'])
+            ->field(['id', 'username', 'realname', 'role_id', 'xiaoqu_id', 'status', 'create_time'])
             ->where($where)
-            ->order(['xiaoqu_id' => 'asc', 'role' => 'asc', 'username' => 'asc'])
+            ->order(['xiaoqu_id' => 'asc', 'role_id' => 'asc', 'username' => 'asc'])
             ->paginate(7);
-// halt($admins);
         $this->assign('count', count($admins));
         $this->assign('admins', $admins);
 
@@ -96,8 +92,7 @@ class Admin extends Base
             $xiaoqulist = model('Xiaoqu')->select();
             $this->assign('xiaoqulist', $xiaoqulist);
 
-            $admin = session('admin');
-            $this->assign('admin', $admin);
+            $this->assign('admin', getCurrentUser());
 
             return $this->fetch();
         }

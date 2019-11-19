@@ -5,7 +5,7 @@ namespace app\admin\controller;
 use app\admin\controller\Base;
 use think\Db;
 
-class Properties extends Base
+class Property extends Base
 {
     public function lstByUser()
     {
@@ -17,15 +17,15 @@ class Properties extends Base
                     p.user_id,
                     u.username,
                     p.addr,
-                    p.property_type,
+                    p.proptype_id,
                     pt.name,
                     p.begin_date,
                     p.fee_status,
                     p.amount,
                     p.discount,
                     p.status
-                from properties p,user u,proper_type pt ';
-            $where = ' where (p.user_id=u.id and p.property_type=pt.id) and p.status=1 ';
+                from property p,user u,proptype pt ';
+            $where = ' where (p.user_id=u.id and p.proptype_id=pt.id) and p.status=1 ';
             if (!empty($username)) {
                 $where .= ' and username like "%' . $username . '%"';
             }
@@ -42,6 +42,8 @@ class Properties extends Base
 
     public function add()
     {
-        return $this->fetch();
+			$categorylist=model('category')->tree(5);
+			$this->assign('categorylist',$categorylist);
+			return $this->fetch();
     }
 }

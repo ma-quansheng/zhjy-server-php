@@ -5,31 +5,31 @@ namespace app\admin\controller;
 use app\admin\controller\Base;
 use think\Controller;
 
-class Notifies extends Base
+class Notify extends Base
 {
     public function add()
     {
         if (request()->isPost()) {
             $input = input('post.');
-            $id = model('Notifies')->allowField(true)->save($input);
+            $id = model('Notify')->allowField(true)->save($input);
             if ($id) {
-                return $this->success('数据保存成功', 'admin/news/lst', '', 1);
+                return $this->success('数据保存成功', 'admin/notify/lst', '', 1);
             } else {
                 return $this->error('数据添加失败');
             }
         } else {
-            $categories = model('Category')->tree(session('admin')['role']);
+            $categories = model('Category')->tree(getCurrentUser()['role_id']);
             $this->assign('categories', $categories);
-            $this->assign('admin', session('admin'));
-            // halt(session('admin'));
+            $this->assign('admin', getCurrentUser());
+            // halt(getCurrentUser());
             return $this->fetch();
         }
     }
 
     public function lst()
     {
-        $type = session('admin')['role'];
-        $categories = model('Category')->tree($type);
+        $role_id = getCurrentUser()['role_id'];
+        $categories = model('Category')->tree($role_id);
         // halt($categories);
         $this->assign('categories', $categories);
         $this->assign('cate_id', 0);
@@ -39,22 +39,22 @@ class Notifies extends Base
             $this->assign('cate_id', $cate_id);
             $where = [
                 'status' => 1,
-                'type_id' => $type,
+                'role_id' => $role_id,
                 'category_id' => $cate_id,
             ];
         } else {
             $where = [
                 'status' => 1,
-                'type_id' => $type,
+                'role_id' => $role_id,
             ];
         }
-        $list = model('Notifies')
-            ->field(['id', 'title', 'sub_title', 'category_id', 'description', 'is_position', 'is_hot', 'author', 'create_time'])
+        $list = model('Notify')
+            ->field(['id', 'title', 'sub_title', 'category_id', 'summary', 'is_position', 'is_hot', 'author', 'create_time'])
             ->where($where)
             ->order(['create_time' => 'desc', 'category_id' => 'asc', 'list_order' => 'asc'])
             ->paginate(6);
 
-        $this->assign('type', $type);
+        $this->assign('type', $role_id);
         $this->assign('list', $list);
         $this->assign('count', count($list));
         // $this->assign('page',$page);
@@ -64,18 +64,19 @@ class Notifies extends Base
 
     public function edit($id)
     {
+			// halt(input('post.'));
         if (request()->isPost()) {
             $input = input('post.');
-            $id = model('Notifies')->isUpdate(true)->save($input);
+            $id = model('Notify')->allowField(true)->isUpdate(true)->save($input);
             if ($id) {
-                $this->success('数据保存成功', 'admin/news/lst', '', 1);
+                $this->success('数据保存成功', 'admin/notify/lst', '', 1);
             } else {
                 $this->error('数据保存失败');
             }
         } else if ($id) {
-            // $data = model('Notifies')->get($id);
-            $data = model('Notifies')->get($id);
-            $list = model('Category')->tree(session('admin')['role']);
+            // $data = model('Notify')->get($id);
+            $data = model('Notify')->get($id);
+            $list = model('Category')->tree(getCurrentUser()['role_id']);
             $this->assign('list', $list);
             $this->assign('data', $data);
             return $this->fetch();
@@ -85,14 +86,14 @@ class Notifies extends Base
     public function showById($id)
     {
         // halt($id);
-        $data = model('Notifies')->get($id);
+        $data = model('Notify')->get($id);
         $this->assign('data', $data);
         return $this->fetch('show');
     }
 
     public function showByCategory($id)
     {
-        $data = model('Notifies')->all(['category_id' => $id]);
+        $data = model('Notify')->all(['category_id' => $id]);
         $this->assign('data', $data);
         return $this->fetch('show');
     }
@@ -102,9 +103,9 @@ class Notifies extends Base
         $data = [
             'status' => -1,
         ];
-        $id = model('Notifies')->isUpdate(true)->save($data, ['id' => $id]);
+        $id = model('Notify')->isUpdate(true)->save($data, ['id' => $id]);
         if ($id) {
-            $this->success('数据删除成功', 'admin/notifies/lst', '', 1);
+            $this->success('数据删除成功', 'admin/notify/lst', '', 1);
         } else {
             $this->error('数据删除失败');
         }

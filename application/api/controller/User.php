@@ -19,9 +19,9 @@ class User extends Controller
         // $list = db('user')->select();
         if ($list) {
             // return json($list);
-            return returnJSON($list, 200);
+            return JSON($list, 200);
         } else {
-            return returnJSON([], 404);
+            return JSON([], 404);
         }
     }
 
@@ -48,12 +48,16 @@ class User extends Controller
         $id = model('User')->save($input);
 
         if ($id) {
-            return returnJSON($id, 200);
+            return JSON($id, 200);
         } else {
-            return returnJSON([], 404);
+            return JSON([], 404);
         }
     }
-
+public function getUser(){
+	$username=input('get.username');
+	$user=model('user')->where('username',$username)->find();
+	return JSON($user);
+}
     /**
      * 显示指定的资源
      *
@@ -69,12 +73,12 @@ class User extends Controller
         try {
             $data = model('User')->select();
             if ($data) {
-                return returnJSON($data, 200);
+                return JSON($data, 200);
             } else {
-                return returnJSON([], 404);
+                return JSON([], 404);
             }
         } catch (\Exception $e) {
-            return returnJSON([], 500);
+            return JSON([], 500);
         }
     }
 
@@ -115,9 +119,9 @@ class User extends Controller
         // delete
         $id = model('User')->destroy($id);
         if ($id) {
-            return returnJSON($id, 200);
+            return JSON($id, 200);
         } else {
-            return returnJSON([], 404);
+            return JSON([], 404);
         }
     }
 
@@ -133,4 +137,9 @@ class User extends Controller
 
     public function logout()
     {}
+		
+		public function getusertypes(){
+			$list=model('usertype')->where('status',1)->select();
+			return json($list);
+		}
 }

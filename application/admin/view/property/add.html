@@ -8,8 +8,8 @@
         <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
     </nav>
     <div class="page-container">
-        <form action="" method="post" class="form form-horizontal" id="form-category-add" method="post" action="{:url('admin/properties/add')}">
-			<!-- <input type="hidden" name="xiaoqu_id" value="{$xiaoqu_id}"> -->
+        <form class="form form-horizontal" id="form-category-add" method="post" action="{:url('admin/property/add')}">
+					<input type="hidden" name="_csrf" value="<%=csrf%>">
 			<div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2">
                     <span class="c-red">*</span>

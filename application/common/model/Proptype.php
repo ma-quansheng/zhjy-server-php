@@ -4,9 +4,8 @@ namespace app\common\model;
 
 use app\common\model\Base;
 
-class Properties extends Base
+class Proptype extends Base
 {
-    protected $table = 'properties';
+    protected $table = 'proptype';
     protected $pk = 'id';
-
 }

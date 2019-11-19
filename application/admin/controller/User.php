@@ -3,6 +3,7 @@
 namespace app\admin\controller;
 
 use app\admin\controller\Base;
+use think\DB;
 
 class User extends Base
 {
@@ -33,8 +34,8 @@ class User extends Base
                        u.status
                   from user u,xiaoqu x,usertype t';
 
-        $count = count(\think\Db::query($select . $where));
-        $page = 1;
+        $count = count(db()->query($select . $where));
+        $page = 0;
         $pageSize = config('app_config.pageSize');
         if (!empty(input('get.page'))) {
             $page = (input('get.page') - 1) * $pageSize;
@@ -44,8 +45,8 @@ class User extends Base
         $order = ' order by u.username ';
         $sql = $select . $where . $order . $limit;
 
-        $list = \think\Db::query($sql);
-        // dump($list);exit;
+        $list = Db::query($sql);
+				// halt($list);
         $this->assign('list', $list);
         $this->assign('keyword', $keyword);
         $this->assign('limit', $pageSize);

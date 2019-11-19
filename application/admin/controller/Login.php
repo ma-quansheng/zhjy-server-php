@@ -13,8 +13,8 @@ class Login extends Base
 
     public function login()
     {
-        if ($this->isLogin()) {
-            return $this->redirect('admin/index');
+        if (\getCurrentUser()) {
+            return $this->redirect('admin/admin/index');
         } else {
             return $this->fetch();
         }
@@ -30,13 +30,15 @@ class Login extends Base
             //     $this->error('验证码错误');
             // }
             // 验证 用户名、密码 是否正确
-            $user = model('Admin')->get(['username' => $input['username']]);
-            if (!$user || $user->status <= 0) {
+						$user=db('admin')->where('username',$input['username'])->find();
+
+            if (!$user || $user['status'] <= 0) {
                 return '用户不存在';
             }
-            // if (Auth::encodeByMd5($input['password']) != $user['password']) {
-            //     return '密码错误';
-            // }
+						
+            if ($input['password'] != $user['password']) {
+                return '密码错误';
+            }
 
             // 保存 用户登录时间、客户端ip
             $u = [
@@ -44,10 +46,11 @@ class Login extends Base
                 'login_time' => time(),
             ];
             try {
-                model('Admin')->save($u, ['id' => $user['id']]);
                 // 在 session 中保存 用户登录信息
-                Session::set(config('app_config.admin_session'), $user, config('app_config.admin_session_scope'));
-                return $this->success('登录成功....', 'admin/index', '', 1);
+                // session(config('app_config.admin_session'), $user, config('app_config.admin_session_scope'));
+								\setCurrentUser($user);
+                model('Admin')->save($u, ['id' => $user['id']]);
+                return $this->success('登录成功....', 'admin/admin/index', '', 1);
             } catch (Exception $e) {
                 $this->error($e->getMessage());
             }
@@ -59,8 +62,8 @@ class Login extends Base
 
     public function logout()
     {
-        Session::clear(config('app_config.admin_session_scope'));
-        $this->redirect('login/login');
+        \clearCurrentUser();
+        $this->redirect('admin/login/login');
     }
 
     public function regist()

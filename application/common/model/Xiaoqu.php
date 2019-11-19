@@ -10,7 +10,7 @@ class Xiaoqu extends Base
     protected $table = 'xiaoqu';
     protected $pk = 'id';
 
-    public function getStatusAttr($k)
+    public function getStatusMap($k)
     {
         $map = [-1 => '删除', 0 => '禁用', 1 => '正常'];
         return $map[$k];

@@ -5,7 +5,7 @@ namespace app\api\controller;
 use think\Controller;
 use think\Request;
 
-class Notifies extends Controller
+class Notify extends Controller
 {
     /**
      * 显示资源列表
@@ -15,7 +15,7 @@ class Notifies extends Controller
     public function index()
     {
         // get
-        $list = model('Notifies')
+        $list = model('Notify')
 			->limit(6)
 			->order(['create_time'=>'desc'])
 			->select();
@@ -27,15 +27,23 @@ class Notifies extends Controller
 		}
     }
 
+	public function getListByXiaoqu(){
+		$xiaoqu_id=input('get.xiaoqu');
+		$list=model('notify')
+			->where('xiaoqu_id',$xiaoqu_id)
+			->order(['create_time'=>'desc'])
+			->select();
+		return $list?JSON($list):[];
+	}
 	public function lst(){
 		$where['xiaoqu_id']=input('get.xiaoqu');
-		$where['type_id']=input('get.type');
+		$where['role_id']=input('get.role');
 		$where['status']=1;
 		$order=[
 			'create_time'=>'desc',
 			'title'=>'asc'
 		];
-		$list=model('Notifies')
+		$list=model('Notify')
 			->order($order)
 			->where($where)
 			->select();
@@ -59,11 +67,11 @@ class Notifies extends Controller
      *
      * @return \think\Response
      */
-    public function getNotifiesByCategory()
+    public function getNotifyByCategory()
     {
         $catid=request()->param()['catid']?request()->param()['catid']:0;
 		$xiaoqu_id=request()->param()['xiaoqu_id'];
-		return json(model('Notifies')->getNotifiesByCategory($xiaoqu_id,$catid));
+		return json(model('Notify')->getNotifyByCategory($xiaoqu_id,$catid));
     }
 
     /**
@@ -83,11 +91,12 @@ class Notifies extends Controller
      * @param  int  $id
      * @return \think\Response
      */
-    public function read($id)
+    public function read()
     {
         // get
+				$id=input('get.id');
 		if ($id){
-            $data = model('Notifies')
+            $data = model('Notify')
 				->alias('a')
 				->join('admin b','a.author=b.id')
 				->find($id);
@@ -99,11 +108,11 @@ class Notifies extends Controller
     }
 	
 	public function getHead(){
-		return json(model('Notifies')->getHead(4));
+		return json(model('Notify')->getHead(4));
 	}
 
 	public function getHot(){
-		$sql='select n.id,n.title,n.type_id,n.category_id,n.xiaoqu_id,n.image,n.description,n.create_time,a.username from notifies n join admin a on n.author=a.id where n.is_hot=1';
+		$sql='select n.id,n.title,n.role_id,n.category_id,n.xiaoqu_id,n.image,n.summary,n.create_time,a.username from notify n join admin a on n.author=a.id where n.is_hot=1';
 		$list=\think\Db::query($sql);
 		return json($list);
 	}

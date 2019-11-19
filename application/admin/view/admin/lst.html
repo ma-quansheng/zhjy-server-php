@@ -38,7 +38,7 @@
                     <tr class="text-c">
                         <td>{$item.username}</td>
                         <td>{$item.realname}</td>
-                        <td>{$item.role|getRoleName}</td>
+                        <td>{$item.role_id|getRoleName}</td>
                         <td>{$item.xiaoqu_id|getXiaoquName}</td>
                         <td>{$item.status|getStatus}</td>
                         <td>
@@ -55,9 +55,9 @@
     </div>
     {include file='public/_footer'}
     <!--请在下方写此页面业务相关的脚本-->
-    <script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <!-- <script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
     <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+    <script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script> -->
     <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [

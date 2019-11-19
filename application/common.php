@@ -22,7 +22,19 @@ if (!function_exists('encodeByMd5')) {
     {
         return md5($str);
     }
+}
 
+function getCurrentUser(){
+	return session(config('app_config.admin_session'), '', config('app_config.admin_session_scope'));
+}
+
+function setCurrentUser($user){
+	return session(config('app_config.admin_session'), $user, config('app_config.admin_session_scope'));
+}
+
+function clearCurrentUser(){
+	\think\Session::clear(config('app_config.admin_session_scope'));
+}
     function returnJSON($data, $code = 200)
     {
         if ($code == 200) {
@@ -142,4 +154,3 @@ if (!function_exists('encodeByMd5')) {
         $map = [0 => '暂停缴费', 1 => '正常缴费', 2 => '欠费', 3 => '优惠'];
         return $map[$id];
     }
-}

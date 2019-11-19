@@ -35,4 +35,10 @@ class Question extends Controller
 		$data=model('question')->get($id);
 		return json($data);
 	}
+	
+	public function create(){
+		$data=input('post.');
+		$id=model('question')->save($data);
+		return $id;
+	}
 }
