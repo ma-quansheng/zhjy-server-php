@@ -52,6 +52,6 @@ return [
     //
     'position_num' => 5,
     'hot_num' => 10,
-    'pageSize' => 5,
+    'pageSize' => 12,
 
 ];

@@ -112,8 +112,11 @@ class Notify extends Controller
 	}
 
 	public function getHot(){
-		$sql='select n.id,n.title,n.role_id,n.category_id,n.xiaoqu_id,n.image,n.summary,n.create_time,a.username from notify n join admin a on n.author=a.id where n.is_hot=1';
-		$list=\think\Db::query($sql);
+		// halt(\input('get.page'));
+		$ps=\config('app_config.pageSize');
+		$skip=$ps*\input('get.page');
+		$sql='select n.id,n.title,n.role_id,n.category_id,n.xiaoqu_id,n.image,n.summary,n.create_time,a.username from notify n join admin a on n.author=a.id where n.is_hot=1 limit ?,?';
+		$list=\think\Db::query($sql,[$skip,$ps]);
 		return json($list);
 	}
 	
