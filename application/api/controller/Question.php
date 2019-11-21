@@ -18,6 +18,8 @@ class Question extends Controller
     }
 
 	public function lst(){
+		$ps=config('app_config.pageSize');
+		$skip=$ps*input('get.page');
 		$author=input('get.author');
 		$status=input('get.status');
 		$where['author']=$author;
@@ -26,7 +28,8 @@ class Question extends Controller
 			'create_time'=>'desc',
 			'title'=>'asc'
 		];
-		$list=model('question')->order($order)->where($where)->select();
+		$list=model('question')->order($order)->where($where)->limit($skip,$ps)->select();
+		// halt(model('question')->getLastSql());
 		return json($list);
 	}
 	

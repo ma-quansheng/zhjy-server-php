@@ -9,16 +9,15 @@ use think\Db;
 class Property extends Controller
 {
     public function lstByUser(){
-		$ps=\config('app_config.pageSize');
-		$skip=$ps*\input('get.page');
+		// $ps=\config('app_config.pageSize');
+		// $skip=$ps*\input('get.page');
 		$id=input('get.id');
 		$sql="select id,addr,
 			(case proptype_id when 1 then '房产' when 2 then '车位' else '未知' end) as property_name,
 			is_lease,is_arrears,status 
 			from property
-			where user_id=?
-			limit ?,?";
-		$data=db::query($sql,[$id,$skip,$ps]);
+			where user_id=?";
+		$data=db::query($sql,[$id]);
 		return json($data);
 	}
 	

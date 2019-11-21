@@ -28,11 +28,15 @@ class Notify extends Controller
     }
 
 	public function getListByXiaoqu(){
+		$ps=config('app_config.pageSize');
+		$skip=$ps*input('get.page');
 		$xiaoqu_id=input('get.xiaoqu');
 		$list=model('notify')
 			->where('xiaoqu_id',$xiaoqu_id)
 			->order(['create_time'=>'desc'])
+			->limit($skip,$ps)
 			->select();
+			// halt(model('notify')->getLastSql());
 		return $list?JSON($list):[];
 	}
 	public function lst(){
