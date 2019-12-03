@@ -176,6 +176,7 @@ create table category(
 	pid int unsigned default 0,
 	type_id int unsigned not null,
 	/* 类型，与管理员角色相对应 2 公共 3 居委会 4 业委会 5 物业 */
+	path varchar(64) not null,
 	status int default 1,
 	/* -1 删除 0 失效 1 正常 */
 	create_time timestamp default current_timestamp,
