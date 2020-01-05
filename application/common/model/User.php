@@ -13,9 +13,4 @@ class User extends Base
     protected $pk = 'id';
     protected $readonly = ['username'];
     protected $deleteTime = 'delete_time';
-
-    public function setPasswordAttr($value)
-    {
-        return md5($value);
-    }
 }

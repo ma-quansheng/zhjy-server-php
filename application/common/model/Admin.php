@@ -9,9 +9,4 @@ class Admin extends Base
     protected $table = 'admin';
     protected $pk = 'id';
     protected $readonly = ['username'];
-
-    public function setPasswordAttr($value)
-    {
-        return md5($value);
-    }
 }

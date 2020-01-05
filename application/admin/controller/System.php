@@ -16,6 +16,7 @@ class System extends Base
 		public function init(){
 
 			// xiaoqu
+			db()->execute('truncate table xiaoqu');
 			$data=[['name'=>'default'],['name'=>'test']];
 			db('xiaoqu')->insertAll($data);
 			
@@ -33,11 +34,11 @@ class System extends Base
 			// admin
 			db()->execute('truncate table admin');
 			$data=[
-				['username'=>'admin','realname'=>'adminstrator','password'=>'123456','role_id'=>1,'xiaoqu_id'=>rand(1,2)],
-				['username'=>'shequ','realname'=>'shequ admin','password'=>'123456','role_id'=>2,'xiaoqu_id'=>rand(1,2)],
-				['username'=>'jwh','realname'=>'jwh admin','password'=>'123456','role_id'=>3,'xiaoqu_id'=>rand(1,2)],
-				['username'=>'ywh','realname'=>'ywh admin','password'=>'123456','role_id'=>4,'xiaoqu_id'=>rand(1,2)],
-				['username'=>'wy','realname'=>'wy admin','password'=>'123456','role_id'=>5,'xiaoqu_id'=>rand(1,2)],
+				['username'=>'admin','realname'=>'adminstrator','password'=>md5('admin123456'),'role_id'=>1,'xiaoqu_id'=>rand(1,2)],
+				['username'=>'shequ','realname'=>'shequ admin','password'=>md5('shequ123456'),'role_id'=>2,'xiaoqu_id'=>rand(1,2)],
+				['username'=>'jwh','realname'=>'jwh admin','password'=>md5('jwh123456'),'role_id'=>3,'xiaoqu_id'=>rand(1,2)],
+				['username'=>'ywh','realname'=>'ywh admin','password'=>md5('ywh123456'),'role_id'=>4,'xiaoqu_id'=>rand(1,2)],
+				['username'=>'wy','realname'=>'wy admin','password'=>md5('wy123456'),'role_id'=>5,'xiaoqu_id'=>rand(1,2)],
 			];
 			db('admin')->insertAll($data);
 			
@@ -52,8 +53,8 @@ class System extends Base
 			// user
 			db()->execute('truncate table user');
 			$data=[
-				['username'=>'mqs','realname'=>'ma quansheng','password'=>'123456','gender'=>rand(0,1),'usertype_id'=>rand(1,2),'xiaoqu_id'=>rand(1,2)],
-				['username'=>'test','realname'=>'test','password'=>'123456','gender'=>rand(0,1),'usertype_id'=>rand(1,2),'xiaoqu_id'=>rand(1,2)],
+				['username'=>'mqs','realname'=>'ma quansheng','password'=>md5('mqs123456'),'gender'=>rand(0,1),'usertype_id'=>rand(1,2),'xiaoqu_id'=>rand(1,2)],
+				['username'=>'test','realname'=>'test','password'=>md5('test123456'),'gender'=>rand(0,1),'usertype_id'=>rand(1,2),'xiaoqu_id'=>rand(1,2)],
 			];
 			db('user')->insertAll($data);
 

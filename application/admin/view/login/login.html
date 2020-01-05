@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="loginWraper panel panel-primary">
+    <div id='app' class="loginWraper panel panel-primary">
         <div class="panel-header">登录</div>
         <div id="loginform" class="loginBox panel-body">
             <form class="form form-horizontal" action="{:url('admin/login/check')}" method="post">
@@ -53,11 +53,6 @@
     <!-- <div class="footer">Copyright 你的公司名称 by H-ui.admin v3.1</div> -->
     <script type="text/javascript" src="__STATIC__/hui.admin/lib/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="__STATIC__/hui.admin/static/h-ui/js/H-ui.min.js"></script>
-    <script>
-    function reloadcode(obj) {
-        obj.src = '/captcha?id=' + Math.random();
-    }
-    </script>
 </body>
 
 </html>

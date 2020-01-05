@@ -31,12 +31,13 @@ class Login extends Base
             // }
             // 验证 用户名、密码 是否正确
 						$user=db('admin')->where('username',$input['username'])->find();
+						// halt($user);
 
             if (!$user || $user['status'] <= 0) {
                 return '用户不存在';
             }
 						
-            if ($input['password'] != $user['password']) {
+            if (Auth::encodeByMd5($input['username'].$input['password']) != $user['password']) {
                 return '密码错误';
             }
 
@@ -70,7 +71,7 @@ class Login extends Base
     {
         if (request()->isPost()) {
             $data = input('post.');
-            $data['password'] = Auth::encodeByMd5($data['password']);
+            $data['password'] = Auth::encodeByMd5($data['username'].$data['password']);
             $id = model('Admin')->add($data);
             if ($id) {
                 $this->success('数据添加成功', 'admin/login/login', '', 1);

@@ -97,18 +97,18 @@ class Notify extends Controller
      */
     public function read()
     {
-        // get
-				$id=input('get.id');
-		if ($id){
-            $data = model('Notify')
-				->alias('a')
-				->join('admin b','a.author=b.id')
-				->find($id);
-			if ($data){
-				return json($data);
+			// get
+			$id=input('get.id');
+			if ($id){
+				$data = model('Notify')
+					->alias('a')
+					->join('admin b','a.author=b.id')
+					->find($id);
+				if ($data){
+					return json($data);
+				}
 			}
-		}
-		return [];
+			return [];
     }
 	
 	public function getHead(){
@@ -119,8 +119,21 @@ class Notify extends Controller
 		// halt(\input('get.page'));
 		$ps=\config('app_config.pageSize');
 		$skip=$ps*\input('get.page');
-		$sql='select n.id,n.title,n.role_id,n.category_id,n.xiaoqu_id,n.image,n.summary,n.create_time,a.username from notify n join admin a on n.author=a.id where n.is_hot=1 limit ?,?';
-		$list=\think\Db::query($sql,[$skip,$ps]);
+		$sql='select 
+						n.id, 
+						n.title, 
+						n.role_id, 
+						n.category_id, 
+						n.xiaoqu_id, 
+						n.image, 
+						n.summary, 
+						n.create_time, 
+						a.username 
+					from notify n join admin a on n.author=a.id 
+					where n.is_hot = 1 
+					limit ' . $skip . ', ' . $ps;
+		// halt($sql);
+		$list=\think\Db::query($sql);
 		return json($list);
 	}
 	
